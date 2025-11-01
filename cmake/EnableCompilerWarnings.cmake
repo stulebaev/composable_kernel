@@ -47,8 +47,8 @@ if (MSVC)
 else()
     foreach(COMPILER C CXX)
         set(CMAKE_COMPILER_WARNINGS)
-        # use -Wall for gcc and clang
         list(APPEND CMAKE_COMPILER_WARNINGS
+            # use -Wall for gcc and clang
             -Wall
             -Wextra
             -Wcomment
@@ -57,7 +57,7 @@ else()
             -Winit-self
             -Wreturn-type
             -Wsequence-point
-            # Shadow is broken on gcc when using lambdas
+            # Wshadow is broken on gcc when using lambdas
             # -Wshadow
             -Wswitch
             -Wtrigraphs

@@ -10,6 +10,7 @@ add_example_executable(example_gemm_dpp_fp16 gemm_dpp_fp16.cpp)
 
 add_example_executable(example_gemm_dl_int8 gemm_dl_int8.cpp)
 add_example_dependencies(example_gemm_dl example_gemm_dl_int8)
+
 if(USE_BITINT_EXTENSION_INT4)
     add_example_executable(example_gemm_dl_int4 gemm_dl_int4.cpp)
     add_example_dependencies(example_gemm_dl example_gemm_dl_int4)
@@ -31,7 +32,6 @@ add_example_dependencies(example_gemm_xdl example_gemm_xdl_fp8_v3)
 
 add_example_executable(example_gemm_xdl_fp16_fp8_v3 gemm_xdl_fp16_fp8_v3.cpp)
 add_example_dependencies(example_gemm_xdl example_gemm_xdl_fp16_fp8_v3)
-
 
 add_example_executable(example_gemm_xdl_fp16_fp8_streamk_v3 gemm_xdl_fp16_fp8_streamk_v3.cpp)
 add_example_dependencies(example_gemm_xdl example_gemm_xdl_fp16_fp8_streamk_v3)

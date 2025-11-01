@@ -69,6 +69,7 @@ set(GTEST_CXX_FLAGS
 
 if(WIN32)
     list(APPEND GTEST_CXX_FLAGS
+        -Wno-ignored-attributes
             -Wno-suggest-destructor-override
             -Wno-suggest-override
             -Wno-nonportable-system-include-path

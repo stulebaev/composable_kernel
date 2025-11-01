@@ -1,0 +1,1 @@
+cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=%HIP_PATH%/bin/hipcc.exe -DCMAKE_RC_COMPILER=%HIP_PATH%/bin/llvm-rc.exe -DGPU_TARGETS=gfx11-generic -DDTYPES="fp32;fp16;bf16;fp8;int8" -DCMAKE_OBJECT_PATH_MAX=1024 ..

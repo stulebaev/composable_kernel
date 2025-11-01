@@ -49,6 +49,7 @@ struct ProblemSizeStreamK final
 
     ck::index_t NumSKBlocks = -1; // number of stream-k blocks
 };
+
 struct ProblemSizeStreamK_universal final
 {
     ck::index_t M = 3840;

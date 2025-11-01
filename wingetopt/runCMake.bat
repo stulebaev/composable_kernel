@@ -1,0 +1,1 @@
+cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=%HIP_PATH%/bin/clang.exe -DCMAKE_CXX_COMPILER=%HIP_PATH%/bin/clang++.exe -DCMAKE_RC_COMPILER=%HIP_PATH%/bin/llvm-rc.exe .

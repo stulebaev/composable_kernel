@@ -5,13 +5,11 @@ include_directories(BEFORE
 
 add_custom_target(examples)
 
-
 # list of examples that are labelled as REGRESSION_EXAMPLE for make regression (runtime more than 30 seconds)
 # all other tests are labelled as SMOKE_EXAMPLE
 set(REGRESSION_EXAMPLES
     example_sparse_embedding3_forward_layernorm
 )
-
 
 function(add_example_dependencies EXAMPLE_NAME FILE_NAME)
     if(FILE_NAME)

@@ -33,7 +33,6 @@ endif()
 set(version 1.2.0)
 # Check support for CUDA/HIP in Cmake
 project(composable_kernel VERSION ${version} LANGUAGES CXX HIP)
-include(CTest)
 
 option(ENABLE_CLANG_CPP_CHECKS "Enables clang tidy, cppcheck" ON)
 option(MIOPEN_REQ_LIBS_ONLY "Build only the MIOpen required libraries" OFF)
@@ -64,6 +63,10 @@ else()
 endif()
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
+
+if(WIN32)
+  add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+endif()
 
 if (DTYPES)
     add_definitions(-DDTYPES)
@@ -152,7 +155,9 @@ execute_process(COMMAND "${GIT_EXECUTABLE}" rev-parse HEAD OUTPUT_VARIABLE COMMI
 configure_file(include/ck/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/include/ck/version.h)
 
 set(ROCM_SYMLINK_LIBS OFF)
-find_package(ROCM REQUIRED PATHS /opt/rocm)
+
+include(rocm-path)
+find_package(ROCmCMakeBuildTools)
 
 include(ROCMInstallTargets)
 include(ROCMPackageConfigHelpers)
@@ -308,7 +313,7 @@ if(NOT WIN32 AND ${hip_VERSION_FLAT} GREATER 600140090)
   endif()
 endif()
 set(check-coerce)
-check_cxx_compiler_flag(" -mllvm -amdgpu-coerce-illegal-types=1" check-coerce)
+check_cxx_compiler_flag("-mllvm -amdgpu-coerce-illegal-types=1" check-coerce)
 if(NOT WIN32 AND check-coerce AND ${hip_VERSION_FLAT} GREATER 600241132)
    message(STATUS "Adding the amdgpu-coerce-illegal-types=1")
    add_compile_options("SHELL: -mllvm -amdgpu-coerce-illegal-types=1")
@@ -343,7 +348,6 @@ if(CMAKE_GENERATOR MATCHES "Ninja")
 elseif(CK_PARALLEL_COMPILE_JOBS)
   message(WARNING "Job pooling is only available with Ninja generators.")
 endif()
-
 
 option(USE_BITINT_EXTENSION_INT4 "Whether to enable clang's BitInt extension to provide int4 data type." OFF)
 option(ENABLE_ASM_DUMP "Whether to enable assembly dump for kernels." OFF)
@@ -450,7 +454,6 @@ set(CK_TIDY_CHECKS -modernize-use-override -readability-non-const-parameter)
 elseif(CK_BACKEND STREQUAL "HIP" OR CK_BACKEND STREQUAL "HIPNOGPU")
 set(CK_TIDY_ERRORS ALL)
 endif()
-
 
 if(ENABLE_CLANG_CPP_CHECKS)
     include(ClangTidy)
@@ -622,8 +625,6 @@ if(NOT MIOPEN_REQ_LIBS_ONLY)
     # make regression runs the tests and examples that runs for more 30 seconds on gfx90a
     add_custom_target(regression COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure -C ${CMAKE_CFG_INTDIR} -L "REGRESSION_TEST" USES_TERMINAL)
 endif()
-
-
 
 file(GLOB_RECURSE INSTANCE_FILES "${PROJECT_SOURCE_DIR}/*/device_*_instance.cpp")
 file(GLOB dir_list RELATIVE ${PROJECT_SOURCE_DIR}/library/src/tensor_operation_instance/gpu ${PROJECT_SOURCE_DIR}/library/src/tensor_operation_instance/gpu/*)
