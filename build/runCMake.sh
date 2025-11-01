@@ -1,1 +1,1 @@
-cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..
+cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DGPU_TARGETS=gfx1030 -DDTYPES="fp32;fp16;bf16;fp8;int8" ..
