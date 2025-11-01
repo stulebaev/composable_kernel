@@ -7,6 +7,7 @@ add_example_executable(example_gemm_dl_fp16 gemm_dl_fp16.cpp)
 add_example_dependencies(example_gemm_dl example_gemm_dl_fp16)
 
 add_example_executable(example_gemm_dpp_fp16 gemm_dpp_fp16.cpp)
+add_example_dependencies(example_gemm_dl example_gemm_dpp_fp16)
 
 add_example_executable(example_gemm_dl_int8 gemm_dl_int8.cpp)
 add_example_dependencies(example_gemm_dl example_gemm_dl_int8)

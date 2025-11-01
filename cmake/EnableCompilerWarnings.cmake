@@ -58,7 +58,7 @@ else()
             -Wreturn-type
             -Wsequence-point
             # Wshadow is broken on gcc when using lambdas
-            # -Wshadow
+            #-Wshadow
             -Wswitch
             -Wtrigraphs
             -Wundef
@@ -66,16 +66,15 @@ else()
             -Wunreachable-code
             -Wunused
             -Wno-reserved-identifier
-            # Werror set outside by BUILD_DEV
-            # -Werror
             -Wno-option-ignored
             -Wsign-compare
             -Wno-extra-semi-stmt
             -Wno-unused-template
+            # Werror set outside by BUILD_DEV
+            #-Werror
         )
         if (CMAKE_${COMPILER}_COMPILER_ID MATCHES "Clang")
             list(APPEND CMAKE_COMPILER_WARNINGS
-                -Weverything
                 -Wno-c++98-compat
                 -Wno-c++98-compat-pedantic
                 -Wno-conversion
@@ -98,6 +97,8 @@ else()
                 -Wno-unsafe-buffer-usage
                 -Wno-unused-lambda-capture
                 -Wno-nvcc-compat
+                # Weverything set outside by BUILD_DEV
+                #-Weverything
             )
             if(CK_CXX_STANDARD GREATER_EQUAL 20)
                 list(APPEND CMAKE_COMPILER_WARNINGS -Wno-c++20-compat)
