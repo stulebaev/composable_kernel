@@ -3,7 +3,13 @@
 
 #pragma once
 
+#include <sstream>
 #include <iostream>
+#include <algorithm>
+#include <cctype>
+#include <stdexcept>
+#include <cstdlib>
+#include <type_traits>
 #include <string>
 
 namespace ck_tile {
@@ -103,8 +109,11 @@ struct EnvVar
 
     explicit EnvVar(const char* const name, const T& def_val)
     {
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wdeprecated-declaration"
         // NOLINTNEXTLINE (concurrency-mt-unsafe)
         const char* vp = std::getenv(name);
+        #pragma clang diagnostic pop
         if(vp != nullptr) // a value was provided
         {
             is_unset = false;

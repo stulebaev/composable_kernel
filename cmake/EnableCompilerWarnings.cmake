@@ -97,6 +97,7 @@ else()
                 -Wno-unsafe-buffer-usage
                 -Wno-unused-lambda-capture
                 -Wno-nvcc-compat
+                -Wno-unused-command-line-argument
                 # Weverything set outside by BUILD_DEV
                 #-Weverything
             )
