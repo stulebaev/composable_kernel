@@ -170,7 +170,7 @@ include(TargetFlags)
 
 rocm_setup_version(VERSION ${version})
 
-list(APPEND CMAKE_PREFIX_PATH ${CMAKE_INSTALL_PREFIX} ${CMAKE_INSTALL_PREFIX}/llvm ${CMAKE_INSTALL_PREFIX}/hip /opt/rocm /opt/rocm/llvm /opt/rocm/hip "$ENV{ROCM_PATH}" "$ENV{HIP_PATH}")
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_INSTALL_PREFIX} ${CMAKE_INSTALL_PREFIX}/llvm ${CMAKE_INSTALL_PREFIX}/hip "$ENV{ROCM_PATH}" "$ENV{HIP_PATH}")
 
 message(STATUS "GPU_TARGETS= ${GPU_TARGETS}")
 message(STATUS "GPU_ARCHS= ${GPU_ARCHS}")
@@ -665,9 +665,8 @@ IF(IS_DIRECTORY "${PROJECT_SOURCE_DIR}/library/src/tensor_operation_instance/gpu
 ENDIF()
 ENDFOREACH()
 
-add_custom_target(instances DEPENDS utility;${CK_DEVICE_INSTANCES}  SOURCES ${INSTANCE_FILES})
+add_custom_target(instances DEPENDS utility;${CK_DEVICE_INSTANCES} SOURCES ${INSTANCE_FILES})
 
-option(MIOPEN_REQ_LIBS_ONLY "Build only the MIOpen required libraries" OFF)
 option(DISABLE_OFFLOAD_COMPRESS "Disable offload compress compiler flag when building instances" OFF)
 option(BUILD_MHA_LIB "Build the static library for flash attention" OFF)
 
@@ -750,4 +749,3 @@ rocm_create_package(
     LDCONFIG
     HEADER_ONLY
 )
-
